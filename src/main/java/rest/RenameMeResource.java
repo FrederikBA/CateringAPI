@@ -23,6 +23,8 @@ public class RenameMeResource {
     public String demo() {
         return "{\"msg\":\"Hello World\"}";
     }
+
+
     @Path("count")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
