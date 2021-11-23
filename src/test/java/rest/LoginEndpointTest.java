@@ -66,7 +66,6 @@ public class LoginEndpointTest {
     }
 
     // Setup the DataBase (used by the test-server and this test) in a known state BEFORE EACH TEST
-    //TODO -- Make sure to change the EntityClass used below to use YOUR OWN (renamed) Entity class
     @BeforeEach
     public void setUp() {
         EntityManager em = emf.createEntityManager();
@@ -240,7 +239,17 @@ public class LoginEndpointTest {
                 .then()
                 .body("userName", equalTo("TestCustomer"));
                //.body("userPass", equalTo(userDTO.getUserPass()));
+    }
 
 
+    //:TODO the scuffed way to test
+    @Test
+    public void getByUsernameTest(){
+        given()
+                .contentType("application/json")
+                .when()
+                .get("/user/customer")
+                .then()
+                .statusCode(200);
     }
 }

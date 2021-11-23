@@ -88,6 +88,8 @@ public class UserFacade {
         }
     }
 
+
+
     public UserDTO getByUsername(String username){
         EntityManager em = emf.createEntityManager();
         try {

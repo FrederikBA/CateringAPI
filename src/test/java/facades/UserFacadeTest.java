@@ -77,4 +77,11 @@ class UserFacadeTest {
         assertEquals(3, facade.getCount());
         assertEquals("TestCustomerThree", u3DTO.getUserName());
     }
+
+    @Test
+    public void getByUsernameTest(){
+        String expected = "TestCustomerOne";
+        String actual = facade.getByUsername(u1.getUserName()).getUserName();
+        assertEquals(expected, actual);
+    }
 }

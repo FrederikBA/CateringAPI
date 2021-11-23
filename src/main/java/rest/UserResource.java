@@ -98,10 +98,11 @@ public class UserResource {
         return gson.toJson(uNew);
     }
 
+
     @GET
     @Produces("application/json")
     @Path("/{username}")
-    public String getById(@PathParam("username") String name){
+    public String getByUser(@PathParam("username") String name){
         return gson.toJson(facade.getByUsername(name));
     }
 
