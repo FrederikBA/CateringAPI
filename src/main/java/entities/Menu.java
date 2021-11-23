@@ -12,8 +12,15 @@ public class Menu {
     private Integer id;
 
     @OneToMany (mappedBy = "menu", cascade = CascadeType.PERSIST)
-    private List<Course> course;
+    private List<Course> courses;
 
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
 
     public Menu(Integer id) {
         this.id = id;
