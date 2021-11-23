@@ -4,6 +4,7 @@ import dtos.Role.RoleDTO;
 import entities.User;
 
 import java.util.List;
+import java.util.Objects;
 
 public class UserDTO {
     private String userName;
@@ -47,5 +48,27 @@ public class UserDTO {
 
     public void setRoles(List<RoleDTO> roles) {
         this.roles = roles;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "userName='" + userName + '\'' +
+                ", userPass='" + userPass + '\'' +
+                ", roles=" + roles +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserDTO userDTO = (UserDTO) o;
+        return Objects.equals(userName, userDTO.userName) && Objects.equals(userPass, userDTO.userPass) && Objects.equals(roles, userDTO.roles);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userName, userPass, roles);
     }
 }

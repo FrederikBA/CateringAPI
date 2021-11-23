@@ -2,6 +2,7 @@ package facades;
 
 import dtos.Role.RoleDTO;
 import dtos.Role.RolesDTO;
+import dtos.UserDTO;
 import entities.Role;
 import entities.User;
 
@@ -44,6 +45,35 @@ public class UserFacade {
         return user;
     }
 
+    public Long getCount() {
+        EntityManager em = emf.createEntityManager();
+        try {
+            TypedQuery<Long> query = em.createQuery("SELECT COUNT(u.userName) FROM User u", Long.class);
+            return query.getSingleResult();
+        } finally {
+            em.close();
+        }
+    }
+
+    //TODO: Error handling if username already exists in the database
+    public UserDTO registerUser(String username, String password) {
+        EntityManager em = emf.createEntityManager();
+        User user = new User(username, password);
+        user.addRole(new Role("customer"));
+
+        try {
+
+            em.getTransaction().begin();
+            em.persist(user);
+            em.getTransaction().commit();
+
+            return new UserDTO(user);
+
+        } finally {
+            em.close();
+        }
+    }
+
     public RolesDTO getRolesByUsername(String username) {
         EntityManager em = emf.createEntityManager();
         try {
@@ -57,5 +87,4 @@ public class UserFacade {
             em.close();
         }
     }
-
 }
