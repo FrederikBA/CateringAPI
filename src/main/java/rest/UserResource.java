@@ -58,9 +58,9 @@ public class UserResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("userinfo")
-    @RolesAllowed("user")
-    public String getFromUser() {
+    @Path("customerinfo")
+    @RolesAllowed("customer")
+    public String getFromCustomer() {
         String thisuser = securityContext.getUserPrincipal().getName();
         return "{\"msg\": \"Hello to User: " + thisuser + "\"}";
     }
@@ -76,8 +76,8 @@ public class UserResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("currentuser")
-    @RolesAllowed("user")
+    @Path("currentcustomer")
+    @RolesAllowed("customer")
     public String getUser() {
         String thisuser = securityContext.getUserPrincipal().getName();
         return gson.toJson(thisuser);
