@@ -1,5 +1,6 @@
 package rest;
 
+import dtos.UserDTO;
 import entities.User;
 import entities.Role;
 
@@ -227,4 +228,19 @@ public class LoginEndpointTest {
                 .body("message", equalTo("Not authenticated - do login"));
     }
 
+    //:TODO test on password fails bcus of hashing on user and not on userDTO
+    @Test
+    public void registerUserTest(){
+        UserDTO userDTO = new UserDTO("TestCustomer", "password1");
+        given()
+                .contentType("application/json")
+                .body(userDTO)
+                .when()
+                .post("/user/register")
+                .then()
+                .body("userName", equalTo("TestCustomer"));
+               //.body("userPass", equalTo(userDTO.getUserPass()));
+
+
+    }
 }

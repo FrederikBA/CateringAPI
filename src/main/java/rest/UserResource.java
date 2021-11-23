@@ -2,6 +2,7 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dtos.UserDTO;
 import entities.User;
 
 import java.util.List;
@@ -9,12 +10,9 @@ import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
-import javax.ws.rs.PathParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.Produces;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.SecurityContext;
 
@@ -89,4 +87,22 @@ public class UserResource {
     public String getRoleByUsername(@PathParam("username") String username) {
         return gson.toJson(facade.getRolesByUsername(username));
     }
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("register")
+    public String registerUser(String user){
+        UserDTO u = gson.fromJson(user, UserDTO.class);
+        UserDTO uNew = facade.registerUser(u.getUserName(), u.getUserPass());
+        return gson.toJson(uNew);
+    }
+
+    @GET
+    @Produces("application/json")
+    @Path("/{username}")
+    public String getById(@PathParam("username") String name){
+        return gson.toJson(facade.getByUsername(name));
+    }
+
 }

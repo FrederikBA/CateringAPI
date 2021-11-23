@@ -23,8 +23,14 @@ public class UserDTO {
         this.roles = roles;
     }
 
+    public UserDTO(String userName, String userPass) {
+        this.userName = userName;
+        this.userPass = userPass;
+    }
+
     public UserDTO() {
     }
+
 
     public String getUserName() {
         return userName;

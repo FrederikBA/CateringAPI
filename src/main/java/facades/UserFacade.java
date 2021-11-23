@@ -87,4 +87,18 @@ public class UserFacade {
             em.close();
         }
     }
+
+    public UserDTO getByUsername(String username){
+        EntityManager em = emf.createEntityManager();
+        try {
+            TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.userName =:user_name",User.class);
+            query.setParameter("user_name", username);
+            User user = query.getSingleResult();
+            return new UserDTO(user);
+
+        } finally {
+            em.close();
+        }
+
+    }
 }
