@@ -75,18 +75,18 @@ public class LoginEndpointTest {
             em.createQuery("delete from User").executeUpdate();
             em.createQuery("delete from Role").executeUpdate();
 
-            Role userRole = new Role("user");
+            Role customerRole = new Role("customer");
             Role adminRole = new Role("admin");
-            User user = new User("user", "test");
-            user.addRole(userRole);
+            User customer = new User("customer", "test");
+            customer.addRole(customerRole);
             User admin = new User("admin", "test");
             admin.addRole(adminRole);
             User both = new User("user_admin", "test");
-            both.addRole(userRole);
+            both.addRole(customerRole);
             both.addRole(adminRole);
-            em.persist(userRole);
+            em.persist(customerRole);
             em.persist(adminRole);
-            em.persist(user);
+            em.persist(customer);
             em.persist(admin);
             em.persist(both);
             //System.out.println("Saved test data to database");
@@ -145,20 +145,20 @@ public class LoginEndpointTest {
     }
 
     @Test
-    public void testRestForUser() {
-        login("user", "test");
+    public void testRestForCustomer() {
+        login("customer", "test");
         given()
                 .contentType("application/json")
                 .header("x-access-token", securityToken)
                 .when()
-                .get("/user/userinfo").then()
+                .get("/user/customerinfo").then()
                 .statusCode(200)
-                .body("msg", equalTo("Hello to User: user"));
+                .body("msg", equalTo("Hello to User: customer"));
     }
 
     @Test
     public void testAutorizedUserCannotAccesAdminPage() {
-        login("user", "test");
+        login("customer", "test");
         given()
                 .contentType("application/json")
                 .header("x-access-token", securityToken)
@@ -174,7 +174,7 @@ public class LoginEndpointTest {
                 .contentType("application/json")
                 .header("x-access-token", securityToken)
                 .when()
-                .get("/user/userinfo").then() //Call User endpoint as Admin
+                .get("/user/customerinfo").then() //Call User endpoint as Admin
                 .statusCode(401);
     }
 
@@ -198,7 +198,7 @@ public class LoginEndpointTest {
                 .contentType("application/json")
                 .header("x-access-token", securityToken)
                 .when()
-                .get("/user/userinfo").then()
+                .get("/user/customerinfo").then()
                 .statusCode(200)
                 .body("msg", equalTo("Hello to User: user_admin"));
     }
@@ -209,7 +209,7 @@ public class LoginEndpointTest {
         given()
                 .contentType("application/json")
                 .when()
-                .get("/user/userinfo").then()
+                .get("/user/customerinfo").then()
                 .statusCode(403)
                 .body("code", equalTo(403))
                 .body("message", equalTo("Not authenticated - do login"));
@@ -221,7 +221,7 @@ public class LoginEndpointTest {
         given()
                 .contentType("application/json")
                 .when()
-                .get("/user/userinfo").then()
+                .get("/user/customerinfo").then()
                 .statusCode(403)
                 .body("code", equalTo(403))
                 .body("message", equalTo("Not authenticated - do login"));

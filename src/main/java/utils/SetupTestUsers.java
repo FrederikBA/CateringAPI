@@ -20,29 +20,29 @@ public class SetupTestUsers {
     // Also, either delete this file, when users are created or rename and add to .gitignore
     // Whatever you do DO NOT COMMIT and PUSH with the real passwords
 
-    User user = new User("user", "test1");
+    User customer = new User("customer", "test1");
     User admin = new User("admin", "test2");
-    User both = new User("user_admin", "test3");
+    User both = new User("customer_admin", "test3");
 
-    if(admin.getUserPass().equals("test")||user.getUserPass().equals("test")||both.getUserPass().equals("test"))
+    if(admin.getUserPass().equals("test")||customer.getUserPass().equals("test")||both.getUserPass().equals("test"))
       throw new UnsupportedOperationException("You have not changed the passwords");
 
     em.getTransaction().begin();
-    Role userRole = new Role("user");
+    Role customerRole = new Role("customer");
     Role adminRole = new Role("admin");
-    user.addRole(userRole);
+    customer.addRole(customerRole);
     admin.addRole(adminRole);
-    both.addRole(userRole);
+    both.addRole(customerRole);
     both.addRole(adminRole);
-    em.persist(userRole);
+    em.persist(customerRole);
     em.persist(adminRole);
-    em.persist(user);
+    em.persist(customer);
     em.persist(admin);
     em.persist(both);
     em.getTransaction().commit();
-    System.out.println("PW: " + user.getUserPass());
-    System.out.println("Testing user with OK password: " + user.verifyPassword("test"));
-    System.out.println("Testing user with wrong password: " + user.verifyPassword("test1"));
+    System.out.println("PW: " + customer.getUserPass());
+    System.out.println("Testing user with OK password: " + customer.verifyPassword("test"));
+    System.out.println("Testing user with wrong password: " + customer.verifyPassword("test1"));
     System.out.println("Created TEST Users");
    
   }
