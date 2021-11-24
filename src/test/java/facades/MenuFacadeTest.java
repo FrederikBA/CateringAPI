@@ -80,11 +80,10 @@ class MenuFacadeTest {
         assertEquals(actual, expected);
     }
 
-    //TODO: fix test when DTO has been fixed
     @Test
     public void getByIdTest() {
-        int expected = 0;
-        int actual = facade.getById(m1.getId()).getId();
+        MenuDTO expected = new MenuDTO(m1);
+        MenuDTO actual = facade.getById(m1.getId());
         assertEquals(expected, actual);
     }
 

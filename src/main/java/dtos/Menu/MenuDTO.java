@@ -18,7 +18,7 @@ public class MenuDTO {
                 .map(menu -> new MenuDTO(menu))
                 .collect(Collectors.toList());
     }
-    //TODO: Fix DTO by adding back ID to constructor and figure out why it returns null when added
+
     public MenuDTO(Menu menu) {
         this.restaurant = menu.getRestaurant();
         this.courses = CourseDTO.getFromList(menu.getCourses());
