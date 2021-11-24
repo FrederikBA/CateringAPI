@@ -1,5 +1,6 @@
 package rest;
 
+import dtos.Course.CourseDTO;
 import dtos.Menu.MenuDTO;
 import entities.Course;
 import entities.Menu;
@@ -114,7 +115,7 @@ class MenuResourceTest {
                 .jsonPath()
                 .getList("menus", MenuDTO.class);
 
-        assertEquals(2,menus.size());
+        assertEquals(2, menus.size());
     }
 
     @Test
@@ -126,5 +127,28 @@ class MenuResourceTest {
                 .get("menu/{id}")
                 .then()
                 .statusCode(200);
+    }
+
+    @Test
+    public void deleteMenuByIdTest() {
+        given()
+                .contentType("application/json")
+                .pathParam("id", m2.getId())
+                .delete("menu/{id}")
+                .then()
+                .assertThat()
+                .statusCode(200);
+
+        List<MenuDTO> menus;
+
+        menus = given()
+                .contentType("application/json")
+                .when()
+                .get("/menu/all")
+                .then()
+                .extract().body().jsonPath().getList("menus", MenuDTO.class);
+
+        MenuDTO m2DTO = new MenuDTO(m2);
+        assertThat(menus, not(hasItem(m2DTO)));
     }
 }

@@ -55,4 +55,14 @@ public class MenuResource {
         MenuDTO mNew = facade.createMenu(m);
         return gson.toJson(mNew);
     }
+
+    @Path("/{id}")
+    @DELETE
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String deleteMenu(@PathParam("id")int id){
+        MenuDTO menuDeleted = facade.deleteMenu(id);
+        return gson.toJson(menuDeleted);
+    }
+
 }
