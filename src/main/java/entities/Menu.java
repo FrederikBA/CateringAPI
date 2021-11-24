@@ -36,4 +36,12 @@ public class Menu {
     public void setId(Integer id) {
         this.id = id;
     }
+
+
+    public void addToMenu (Course course) {
+        this.courses.add(course);
+        if (course != null) {
+            course.setMenu(this);
+        }
+    }
 }

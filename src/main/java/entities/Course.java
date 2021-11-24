@@ -1,5 +1,7 @@
 package entities;
 
+import dtos.Course.CourseDTO;
+
 import javax.persistence.*;
 
 @Entity
@@ -21,8 +23,15 @@ public class Course {
         this.image = image;
     }
 
+    public Course(CourseDTO courseDTO){
+        this.id = courseDTO.getId();
+        this.title = courseDTO.getTitle();
+        this.image = courseDTO.getImage();
+    }
+
     public Course() {
     }
+
 
     public Menu getMenu() {
         return menu;
