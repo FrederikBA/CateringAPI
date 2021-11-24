@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 public class MenuDTO {
     private int id;
+    private String restaurant;
     private List<CourseDTO> courses;
 
     public static List<MenuDTO> getFromList(List<Menu> menus) {
@@ -19,11 +20,12 @@ public class MenuDTO {
     }
 
     public MenuDTO(Menu menu) {
-        this.id = menu.getId();
+        this.restaurant = menu.getRestaurant();
         this.courses = CourseDTO.getFromList(menu.getCourses());
     }
 
     public MenuDTO() {
+        this.restaurant = "CustomCatering";
         this.id = -1;
     }
 

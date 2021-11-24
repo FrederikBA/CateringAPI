@@ -39,7 +39,11 @@ class MenuFacadeTest {
 
     @BeforeEach
     public void setUp() {
-
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        em.createQuery("delete from Course").executeUpdate();
+        em.createQuery("delete from Menu").executeUpdate();
+        em.getTransaction().commit();
     }
 
 
@@ -50,7 +54,15 @@ class MenuFacadeTest {
 
     @Test
     public void createMenuTest() {
+        Menu m1 = new Menu();
 
+        m1.addToMenu(new Course("pizza", "g.dk", 1));
+        m1.addToMenu(new Course("burger", "g.dk", 2));
+
+        int actual = 2;
+        int expected = facade.createMenu(new MenuDTO(m1)).getCourses().size();
+
+        assertEquals(actual, expected);
 
     }
 

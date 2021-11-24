@@ -12,6 +12,7 @@ public class CourseDTO {
     private int id;
     private String title;
     private String image;
+    private int courseId;
 
 
     public static List<CourseDTO> getFromList(List<Course> courses) {
@@ -21,15 +22,16 @@ public class CourseDTO {
     }
 
     public CourseDTO(Course course) {
-        this.id = course.getId();
         this.title = course.getTitle();
         this.image = course.getImage();
+        this.courseId = course.getCourseID();
     }
 
-    public CourseDTO(String title, String image) {
+    public CourseDTO(String title, String image, int courseId) {
         this.id = -1;
         this.title = title;
         this.image = image;
+        this.courseId = courseId;
     }
 
     public int getId() {
@@ -54,6 +56,14 @@ public class CourseDTO {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public int getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(int courseId) {
+        this.courseId = courseId;
     }
 
     @Override

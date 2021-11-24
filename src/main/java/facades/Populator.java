@@ -5,6 +5,7 @@
  */
 package facades;
 
+import dtos.Menu.MenuDTO;
 import dtos.RenameMeDTO;
 import entities.Course;
 import entities.Menu;
@@ -20,12 +21,14 @@ public class Populator {
         EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
         EntityManager em = emf.createEntityManager();
         MenuFacade facade = MenuFacade.getMenuFacade(emf);
-        Menu m1 = new Menu();
-        m1.addToMenu(new Course("pizza", "g.dk"));
 
-        em.getTransaction().begin();
-        em.persist(m1);
-        em.getTransaction().commit();
+        Menu m1 = new Menu();
+
+        m1.addToMenu(new Course("pizza","g.dk",1));
+        m1.addToMenu(new Course("burger","g.dk",2));
+
+        facade.createMenu(new MenuDTO(m1));
+
 
     }
 

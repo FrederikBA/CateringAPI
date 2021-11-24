@@ -13,19 +13,21 @@ public class Course {
     private Integer id;
     private String title;
     private String image;
-
+    private int courseID;
 
     @ManyToOne
     Menu menu;
 
-    public Course(String title, String image) {
+    public Course(String title, String image, int courseID) {
         this.title = title;
         this.image = image;
+        this.courseID = courseID;
     }
 
-    public Course(CourseDTO courseDTO){
+    public Course(CourseDTO courseDTO) {
         this.title = courseDTO.getTitle();
         this.image = courseDTO.getImage();
+        this.courseID = courseDTO.getCourseId();
     }
 
     public Course() {
@@ -46,6 +48,14 @@ public class Course {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public int getCourseID() {
+        return courseID;
+    }
+
+    public void setCourseID(int courseID) {
+        this.courseID = courseID;
     }
 
     public String getTitle() {
