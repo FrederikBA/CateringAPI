@@ -23,7 +23,7 @@ public class MenuDTO {
         this.courses = CourseDTO.getFromList(menu.getCourses());
     }
 
-    public MenuDTO(int id) {
+    public MenuDTO() {
         this.id = -1;
     }
 
