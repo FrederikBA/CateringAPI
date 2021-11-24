@@ -9,7 +9,6 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class CourseDTO {
-    private int id;
     private String title;
     private String image;
     private int courseId;
@@ -28,18 +27,9 @@ public class CourseDTO {
     }
 
     public CourseDTO(String title, String image, int courseId) {
-        this.id = -1;
         this.title = title;
         this.image = image;
         this.courseId = courseId;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getTitle() {
@@ -71,20 +61,20 @@ public class CourseDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CourseDTO courseDTO = (CourseDTO) o;
-        return id == courseDTO.id && Objects.equals(title, courseDTO.title) && Objects.equals(image, courseDTO.image);
+        return courseId == courseDTO.courseId && Objects.equals(title, courseDTO.title) && Objects.equals(image, courseDTO.image);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, image);
+        return Objects.hash(title, image, courseId);
     }
 
     @Override
     public String toString() {
         return "CourseDTO{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
+                "title='" + title + '\'' +
                 ", image='" + image + '\'' +
+                ", courseId=" + courseId +
                 '}';
     }
 }

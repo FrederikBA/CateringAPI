@@ -9,8 +9,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class MenuDTO {
-    private int id;
-    private String restaurant;
+    private final String restaurant;
     private List<CourseDTO> courses;
 
     public static List<MenuDTO> getFromList(List<Menu> menus) {
@@ -26,7 +25,6 @@ public class MenuDTO {
 
     public MenuDTO() {
         this.restaurant = "CustomCatering";
-        this.id = -1;
     }
 
     public List<CourseDTO> getCourses() {
@@ -37,32 +35,24 @@ public class MenuDTO {
         this.courses = courses;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     @Override
     public boolean equals(Object o) {
-
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MenuDTO menuDTO = (MenuDTO) o;
-        return id == menuDTO.id;
+        return Objects.equals(restaurant, menuDTO.restaurant) && Objects.equals(courses, menuDTO.courses);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(restaurant, courses);
     }
 
     @Override
     public String toString() {
         return "MenuDTO{" +
-                "id=" + id +
+                "restaurant='" + restaurant + '\'' +
+                ", courses=" + courses +
                 '}';
     }
 }

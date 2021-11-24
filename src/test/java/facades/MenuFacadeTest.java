@@ -1,6 +1,5 @@
 package facades;
 
-import dtos.Course.CourseDTO;
 import dtos.Menu.MenuDTO;
 import entities.Course;
 import entities.Menu;
@@ -12,10 +11,6 @@ import javax.persistence.EntityManagerFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.hasItem;
 
 
 class MenuFacadeTest {
