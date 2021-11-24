@@ -3,12 +3,14 @@ package facades;
 import dtos.Course.CourseDTO;
 import dtos.Course.CoursesDTO;
 import dtos.Menu.MenuDTO;
+import dtos.Menu.MenusDTO;
 import entities.Course;
 import entities.Menu;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
+import java.util.List;
 
 public class MenuFacade {
     private static EntityManagerFactory emf;
@@ -41,6 +43,32 @@ public class MenuFacade {
 
             return new MenuDTO(menu);
 
+        } finally {
+            em.close();
+        }
+    }
+
+    public MenusDTO getAll() {
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            TypedQuery query = em.createQuery("SELECT m from Menu m", Menu.class);
+            List<Menu> results = query.getResultList();
+
+            return new MenusDTO(results);
+
+        } finally {
+            em.close();
+        }
+    }
+
+    public MenuDTO getById(int id) {
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            Menu menu = em.find(Menu.class, id);
+
+            return new MenuDTO(menu);
         } finally {
             em.close();
         }
