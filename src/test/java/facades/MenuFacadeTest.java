@@ -94,4 +94,13 @@ class MenuFacadeTest {
         int actual = facade.getAll().getMenus().size();
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void deleteMenuTest(){
+        facade.deleteMenu(m1.getId());
+
+        assertEquals(1,facade.getCount());
+
+
+    }
 }

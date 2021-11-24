@@ -83,7 +83,7 @@ public class MenuFacade {
         } else {
             try {
                 em.getTransaction().begin();
-                em.persist(menu);
+                em.remove(menu);
                 em.getTransaction().commit();
 
                 return new MenuDTO(menu);
