@@ -1,6 +1,7 @@
 package entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -10,9 +11,16 @@ public class Menu {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
+    private String restaurant;
 
-    @OneToMany (mappedBy = "menu", cascade = CascadeType.PERSIST)
+
+    @OneToMany(mappedBy = "menu", cascade = CascadeType.PERSIST)
     private List<Course> courses;
+
+    public Menu() {
+        this.restaurant = "CustomCatering";
+        this.courses = new ArrayList<>();
+    }
 
     public List<Course> getCourses() {
         return courses;
@@ -26,9 +34,6 @@ public class Menu {
         this.id = id;
     }
 
-    public Menu() {
-    }
-
     public Integer getId() {
         return id;
     }
@@ -38,7 +43,7 @@ public class Menu {
     }
 
 
-    public void addToMenu (Course course) {
+    public void addToMenu(Course course) {
         this.courses.add(course);
         if (course != null) {
             course.setMenu(this);

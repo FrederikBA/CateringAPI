@@ -48,21 +48,11 @@ class MenuFacadeTest {
     }
 
 
-  //@Test
-  //public void createMenuTest() {
-  //    Menu m1 = new Menu();
-  //    m1.addToMenu(new Course("lasagne", "lasagne.dk"));
-  //    m1.addToMenu(new Course("burger", "MCD.dk"));
-  //    m1.addToMenu(new Course("pizza", "pizzamaaaan.dk"));
+    @Test
+    public void createMenuTest() {
 
-  //    facade.createMenu(new MenuDTO(m1));
 
-  //    int expected = 0;
-  //    int actual = m1.getCourses().size();
-
-  //    assertEquals(expected,actual);
-
-  //}
+    }
 
 
 }

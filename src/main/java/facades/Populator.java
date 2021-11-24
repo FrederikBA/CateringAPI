@@ -6,23 +6,29 @@
 package facades;
 
 import dtos.RenameMeDTO;
+import entities.Course;
+import entities.Menu;
 import entities.RenameMe;
+
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+
 import utils.EMF_Creator;
 
-/**
- *
- * @author tha
- */
 public class Populator {
-    public static void populate(){
+    public static void populate() {
         EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
-        FacadeExample fe = FacadeExample.getFacadeExample(emf);
-        fe.create(new RenameMeDTO(new RenameMe("First 1", "Last 1")));
-        fe.create(new RenameMeDTO(new RenameMe("First 2", "Last 2")));
-        fe.create(new RenameMeDTO(new RenameMe("First 3", "Last 3")));
+        EntityManager em = emf.createEntityManager();
+        MenuFacade facade = MenuFacade.getMenuFacade(emf);
+        Menu m1 = new Menu();
+        m1.addToMenu(new Course("pizza", "g.dk"));
+
+        em.getTransaction().begin();
+        em.persist(m1);
+        em.getTransaction().commit();
+
     }
-    
+
     public static void main(String[] args) {
         populate();
     }
