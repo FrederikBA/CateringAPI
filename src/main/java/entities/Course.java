@@ -1,6 +1,7 @@
 package entities;
 
 import dtos.Course.CourseDTO;
+import org.eclipse.persistence.annotations.CascadeOnDelete;
 
 import javax.persistence.*;
 

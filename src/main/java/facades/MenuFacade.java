@@ -9,6 +9,7 @@ import entities.Menu;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.WebApplicationException;
 import java.util.List;
@@ -78,22 +79,20 @@ public class MenuFacade {
     public MenuDTO deleteMenu(int id) throws WebApplicationException {
         EntityManager em = emf.createEntityManager();
         Menu menu = em.find(Menu.class, id);
-        if (menu == null) {
-            throw new WebApplicationException("Cant find id to match menu");
-        } else {
-            try {
-                em.getTransaction().begin();
-                em.remove(menu);
-                em.getTransaction().commit();
+        try {
 
-                return new MenuDTO(menu);
-            } finally {
-                em.close();
-            }
+            em.getTransaction().begin();
+            em.createNativeQuery("DELETE FROM COURSE  WHERE MENU_id = ?").setParameter(1, id).executeUpdate();
+            em.remove(menu);
+            em.getTransaction().commit();
+
+            return new MenuDTO(menu);
+        } finally {
+            em.close();
         }
     }
 
-    
+
     //Used in tests to check size of the DB
     public Long getCount() {
         EntityManager em = emf.createEntityManager();

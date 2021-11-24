@@ -96,9 +96,9 @@ class MenuFacadeTest {
 
     @Test
     public void deleteMenuTest(){
-        facade.deleteMenu(m1.getId());
+        facade.deleteMenu(m2.getId());
 
-        assertEquals(1,facade.getCount());
+        assertEquals(1,facade.getAll().getMenus().size());
 
 
     }
