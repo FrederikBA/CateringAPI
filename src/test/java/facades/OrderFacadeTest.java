@@ -55,9 +55,9 @@ class OrderFacadeTest {
 
 
         em.getTransaction().begin();
+        em.createQuery("delete from CateringOrder").executeUpdate();
         em.createQuery("delete from Course").executeUpdate();
         em.createQuery("delete from Menu").executeUpdate();
-        em.createQuery("delete from CateringOrder").executeUpdate();
         em.persist(m1);
         em.persist(m2);
         em.persist(o1);
