@@ -9,6 +9,7 @@ import dtos.Menu.MenuDTO;
 import dtos.RenameMeDTO;
 import entities.Course;
 import entities.Menu;
+import entities.Order;
 import entities.RenameMe;
 
 import javax.persistence.EntityManager;
@@ -16,18 +17,23 @@ import javax.persistence.EntityManagerFactory;
 
 import utils.EMF_Creator;
 
+import java.util.Date;
+
 public class Populator {
     public static void populate() {
         EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
         EntityManager em = emf.createEntityManager();
-        MenuFacade facade = MenuFacade.getMenuFacade(emf);
-
         Menu m1 = new Menu();
-
-        m1.addToMenu(new Course("pizza","g.dk",1));
-        m1.addToMenu(new Course("burger","g.dk",2));
-
-        facade.createMenu(new MenuDTO(m1));
+        Course c1 = new Course("Pasta", "google.dk",1);
+        Course c2 = new Course("Pizza", "google.dk",2);
+        Course c3 = new Course("Burger", "google.dk",3);
+        m1.addToMenu(c1);
+        m1.addToMenu(c2);
+        m1.addToMenu(c3);
+        Order o1 = new Order(new Date());
+        em.getTransaction().begin();
+        em.persist(o1);
+        em.getTransaction().commit();
 
 
     }

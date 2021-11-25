@@ -19,6 +19,10 @@ public class Menu {
     @OneToMany(mappedBy = "menu", cascade = CascadeType.PERSIST )
     private List<Course> courses;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id", referencedColumnName = "id")
+    private Order order;
+
     public Menu() {
         this.restaurant = "CustomCatering";
         this.courses = new ArrayList<>();
