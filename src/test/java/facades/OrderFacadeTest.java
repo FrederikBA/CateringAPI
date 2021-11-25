@@ -76,4 +76,11 @@ class OrderFacadeTest {
         int actual = facade.getAll().getOrders().size();
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void getOrderById(){
+        int expected = o1.getId();
+        int actual = facade.getOrderById(o1.getId()).getId();
+        assertEquals(expected,actual);
+    }
 }
