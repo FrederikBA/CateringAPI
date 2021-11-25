@@ -19,7 +19,7 @@ public class Menu {
     @OneToMany(mappedBy = "menu", cascade = CascadeType.PERSIST )
     private List<Course> courses;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "cateringorder_id", referencedColumnName = "id")
     private CateringOrder cateringOrder;
 
