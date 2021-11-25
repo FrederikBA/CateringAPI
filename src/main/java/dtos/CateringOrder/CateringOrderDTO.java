@@ -36,6 +36,22 @@ public class CateringOrderDTO {
         this.deliveryDate = deliveryDate;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public MenuDTO getMenuDTO() {
+        return menuDTO;
+    }
+
+    public void setMenuDTO(MenuDTO menuDTO) {
+        this.menuDTO = menuDTO;
+    }
+
     public Date getCreated() {
         return created;
     }
