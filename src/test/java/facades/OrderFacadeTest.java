@@ -18,7 +18,7 @@ class OrderFacadeTest {
     private static OrderFacade facade;
     private static Menu m1, m2;
     private static Course c1, c2, c3;
-    private static CateringOrder co1, co2, co3;
+    private static CateringOrder o1, o2;
 
     public OrderFacadeTest(){
     }
@@ -47,17 +47,21 @@ class OrderFacadeTest {
         m1.addToMenu(c2);
         m2.addToMenu(c3);
 
-        co1.setMenu(m1);
-        co2.setMenu(m1);
-        co3.setMenu(m2);
+        o1 = new CateringOrder("2021-01-04");
+        o2 = new CateringOrder("2021-01-04");
+
+        o1.setMenu(m1);
+        o2.setMenu(m2);
+
 
         em.getTransaction().begin();
         em.createQuery("delete from Course").executeUpdate();
         em.createQuery("delete from Menu").executeUpdate();
         em.createQuery("delete from CateringOrder").executeUpdate();
-        em.persist(co1);
-        em.persist(co2);
-        em.persist(co3);
+        em.persist(m1);
+        em.persist(m2);
+        em.persist(o1);
+        em.persist(o2);
         em.getTransaction().commit();
 
     }
@@ -66,10 +70,10 @@ class OrderFacadeTest {
     public void tearDown() {
     }
 
-   /* @Test
+    @Test
     public void getAllOrderTest(){
-        int expected = 0;
+        int expected = 2;
         int actual = facade.getAll().getOrders().size();
         assertEquals(expected, actual);
-    }*/
+    }
 }
