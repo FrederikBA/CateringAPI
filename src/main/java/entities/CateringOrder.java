@@ -1,51 +1,41 @@
 package entities;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
-public class Order {
+public class CateringOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
     private Date created;
-    private Date deliveryDate;
+    private String deliveryDate;
 
-    @OneToOne(mappedBy = "order")
+    @OneToOne(mappedBy = "cateringOrder")
     private Menu menu;
 
-    public Order(Date deliveryDate) {
+    public CateringOrder(String deliveryDate) {
         this.created = new Date();
         this.deliveryDate = deliveryDate;
     }
 
-
-    public Order() {
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+    public CateringOrder() {
     }
 
     public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Timestamp created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 
-    public Date getDeliveryDate() {
+    public String getDeliveryDate() {
         return deliveryDate;
     }
 
-    public void setDeliveryDate(Date deliveryDate) {
+    public void setDeliveryDate(String deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
 
@@ -55,5 +45,13 @@ public class Order {
 
     public void setMenu(Menu menu) {
         this.menu = menu;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

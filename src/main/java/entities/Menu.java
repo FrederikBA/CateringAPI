@@ -20,12 +20,20 @@ public class Menu {
     private List<Course> courses;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id", referencedColumnName = "id")
-    private Order order;
+    @JoinColumn(name = "cateringorder_id", referencedColumnName = "id")
+    private CateringOrder cateringOrder;
 
     public Menu() {
         this.restaurant = "CustomCatering";
         this.courses = new ArrayList<>();
+    }
+
+    public CateringOrder getCateringOrder() {
+        return cateringOrder;
+    }
+
+    public void setCateringOrder(CateringOrder cateringOrder) {
+        this.cateringOrder = cateringOrder;
     }
 
     public String getRestaurant() {

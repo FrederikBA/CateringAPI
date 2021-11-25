@@ -5,12 +5,10 @@
  */
 package facades;
 
-import dtos.Menu.MenuDTO;
-import dtos.RenameMeDTO;
+import entities.CateringOrder;
 import entities.Course;
 import entities.Menu;
-import entities.Order;
-import entities.RenameMe;
+//import entities.Order;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -30,7 +28,7 @@ public class Populator {
         m1.addToMenu(c1);
         m1.addToMenu(c2);
         m1.addToMenu(c3);
-        Order o1 = new Order(new Date());
+        CateringOrder o1 = new CateringOrder("2021-11-22");
         em.getTransaction().begin();
         em.persist(o1);
         em.getTransaction().commit();
