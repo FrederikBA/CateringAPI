@@ -3,7 +3,6 @@ package rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dtos.CateringOrder.CateringOrderDTO;
-import entities.CateringOrder;
 import facades.OrderFacade;
 import utils.EMF_Creator;
 
