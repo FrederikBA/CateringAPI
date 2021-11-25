@@ -30,6 +30,8 @@ public class Populator {
         m1.addToMenu(c3);
         CateringOrder o1 = new CateringOrder("2021-11-22");
         em.getTransaction().begin();
+        o1.setMenu(m1);
+        em.persist(m1);
         em.persist(o1);
         em.getTransaction().commit();
 

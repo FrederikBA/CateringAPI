@@ -12,7 +12,8 @@ public class CateringOrder {
     private Date created;
     private String deliveryDate;
 
-    @OneToOne(mappedBy = "cateringOrder")
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "menu_id", referencedColumnName = "id")
     private Menu menu;
 
     public CateringOrder(String deliveryDate) {
