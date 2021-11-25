@@ -105,7 +105,7 @@ class OrderResourceTest {
         em.persist(o1);
         em.persist(o2);
         em.getTransaction().commit();
-    }
+    } 
 
     @Test
     public void testServerIsUp() {
