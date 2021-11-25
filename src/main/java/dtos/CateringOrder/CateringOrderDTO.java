@@ -1,9 +1,7 @@
 package dtos.CateringOrder;
 
 import dtos.Menu.MenuDTO;
-import dtos.Role.RoleDTO;
 import entities.CateringOrder;
-import entities.Role;
 
 import java.util.Date;
 import java.util.List;
@@ -14,7 +12,7 @@ public class CateringOrderDTO {
     private int id;
     private Date created;
     private String deliveryDate;
-    private MenuDTO menuDTO;
+    private MenuDTO menu;
 
     public static List<CateringOrderDTO> getFromList(List<CateringOrder> orders) {
         return orders.stream()
@@ -26,7 +24,7 @@ public class CateringOrderDTO {
         this.id = cateringOrder.getId();
         this.created = cateringOrder.getCreated();
         this.deliveryDate = cateringOrder.getDeliveryDate();
-        this.menuDTO = new MenuDTO(cateringOrder.getMenu());
+        this.menu = new MenuDTO(cateringOrder.getMenu());
 
     }
 
@@ -44,12 +42,12 @@ public class CateringOrderDTO {
         this.id = id;
     }
 
-    public MenuDTO getMenuDTO() {
-        return menuDTO;
+    public MenuDTO getMenu() {
+        return menu;
     }
 
-    public void setMenuDTO(MenuDTO menuDTO) {
-        this.menuDTO = menuDTO;
+    public void setMenu(MenuDTO menu) {
+        this.menu = menu;
     }
 
     public Date getCreated() {
@@ -73,12 +71,12 @@ public class CateringOrderDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CateringOrderDTO that = (CateringOrderDTO) o;
-        return id == that.id && Objects.equals(created, that.created) && Objects.equals(deliveryDate, that.deliveryDate) && Objects.equals(menuDTO, that.menuDTO);
+        return id == that.id && Objects.equals(created, that.created) && Objects.equals(deliveryDate, that.deliveryDate) && Objects.equals(menu, that.menu);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, created, deliveryDate, menuDTO);
+        return Objects.hash(id, created, deliveryDate, menu);
     }
 
     @Override
@@ -87,7 +85,7 @@ public class CateringOrderDTO {
                 "id=" + id +
                 ", created=" + created +
                 ", deliveryDate='" + deliveryDate + '\'' +
-                ", menuDTO=" + menuDTO +
+                ", menuDTO=" + menu +
                 '}';
     }
 }

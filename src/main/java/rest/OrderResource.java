@@ -42,4 +42,21 @@ public class OrderResource {
         CateringOrderDTO oNew = facade.createOrder(id, o);
         return gson.toJson(oNew);
     }
+
+
+    @Path("/all")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAllOrder() {
+        return gson.toJson(facade.getAll());
+    }
+
+    @Path("/{id}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getOrderById(@PathParam("id")int id){
+        return gson.toJson(facade.getOrderById(id));
+    }
+
+    
 }
