@@ -1,7 +1,9 @@
 package rest;
 
+import dtos.CateringOrder.CateringOrderDTO;
 import dtos.Course.CourseDTO;
 import dtos.Menu.MenuDTO;
+import entities.CateringOrder;
 import entities.Course;
 import entities.Menu;
 import io.restassured.RestAssured;
@@ -35,12 +37,14 @@ import java.net.URI;
 import java.util.List;
 
 
-class MenuResourceTest {
+class OrderResourceTest {
 
     private static final int SERVER_PORT = 7777;
     private static final String SERVER_URL = "http://localhost/api";
     private static Menu m1, m2;
     private static Course c1, c2, c3;
+    private static CateringOrder o1, o2;
+
 
     static final URI BASE_URI = UriBuilder.fromUri(SERVER_URL).port(SERVER_PORT).build();
     private static HttpServer httpServer;
@@ -86,70 +90,55 @@ class MenuResourceTest {
         m1.addToMenu(c2);
         m2.addToMenu(c3);
 
+        o1 = new CateringOrder("2021-01-04");
+        o2 = new CateringOrder("2021-01-04");
+
+        o1.setMenu(m1);
+        o2.setMenu(m2);
+
+
         em.getTransaction().begin();
         em.createQuery("delete from CateringOrder").executeUpdate();
         em.createQuery("delete from Course").executeUpdate();
         em.createQuery("delete from Menu").executeUpdate();
         em.persist(m1);
         em.persist(m2);
-        em.persist(c1);
-        em.persist(c2);
-        em.persist(c3);
+        em.persist(o1);
+        em.persist(o2);
         em.getTransaction().commit();
-    }
+    } 
 
     @Test
     public void testServerIsUp() {
-        given().when().get("/menu").then().statusCode(200);
+        given().when().get("/order").then().statusCode(200);
     }
-
 
     @Test
     public void testGetAll() {
-        List<MenuDTO> menus;
-        menus = given()
+        List<CateringOrderDTO> orders;
+        orders = given()
                 .contentType("application/json")
                 .accept(ContentType.JSON)
-                .get("/menu/all").then()
+                .get("order/all").then()
                 .extract()
                 .body()
                 .jsonPath()
-                .getList("menus", MenuDTO.class);
+                .getList("orders", CateringOrderDTO.class);
 
-        assertEquals(2, menus.size());
+        assertEquals(2, orders.size());
     }
 
     @Test
-    public void testGetById() {
+    public void testGetById(){
         given()
                 .contentType("application/json")
-                .pathParam("id", m1.getId())
+                .pathParam("id", o1.getId())
                 .when()
-                .get("menu/{id}")
+                .get("order/{id}")
                 .then()
                 .statusCode(200);
     }
 
-    @Test
-    public void deleteMenuByIdTest() {
-        given()
-                .contentType("application/json")
-                .pathParam("id", m2.getId())
-                .delete("menu/{id}")
-                .then()
-                .assertThat()
-                .statusCode(200);
 
-        List<MenuDTO> menus;
-
-        menus = given()
-                .contentType("application/json")
-                .when()
-                .get("/menu/all")
-                .then()
-                .extract().body().jsonPath().getList("menus", MenuDTO.class);
-
-        MenuDTO m2DTO = new MenuDTO(m2);
-        assertThat(menus, not(hasItem(m2DTO)));
-    }
 }
+

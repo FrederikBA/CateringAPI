@@ -55,9 +55,9 @@ class OrderFacadeTest {
 
 
         em.getTransaction().begin();
+        em.createQuery("delete from CateringOrder").executeUpdate();
         em.createQuery("delete from Course").executeUpdate();
         em.createQuery("delete from Menu").executeUpdate();
-        em.createQuery("delete from CateringOrder").executeUpdate();
         em.persist(m1);
         em.persist(m2);
         em.persist(o1);
@@ -75,5 +75,12 @@ class OrderFacadeTest {
         int expected = 2;
         int actual = facade.getAll().getOrders().size();
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void getOrderById(){
+        int expected = o1.getId();
+        int actual = facade.getOrderById(o1.getId()).getId();
+        assertEquals(expected,actual);
     }
 }
