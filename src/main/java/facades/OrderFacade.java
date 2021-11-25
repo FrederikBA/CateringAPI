@@ -2,6 +2,7 @@ package facades;
 
 import dtos.CateringOrder.CateringOrderDTO;
 import entities.CateringOrder;
+import entities.Menu;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -21,12 +22,21 @@ public class OrderFacade {
         return instance;
     }
 
-    public CateringOrderDTO createOrder(CateringOrderDTO cateringOrderDTO) {
+    public CateringOrderDTO createOrder(int menuId, CateringOrderDTO cateringOrderDTO) {
         EntityManager em = emf.createEntityManager();
+
         CateringOrder order = new CateringOrder(cateringOrderDTO.getDeliveryDate());
-        
+        Menu menu = em.find(Menu.class, menuId);
+
+        order.setMenu(menu);
+
         try {
-            return null;
+            em.getTransaction().begin();
+            em.persist(order);
+            em.getTransaction().commit();
+
+            return new CateringOrderDTO(order);
+
         } finally {
             em.close();
         }
