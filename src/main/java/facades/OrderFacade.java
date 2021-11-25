@@ -25,10 +25,10 @@ public class OrderFacade {
         return instance;
     }
 
-    public CateringOrderDTO createOrder(int menuId, CateringOrderDTO cateringOrderDTO) {
+    public CateringOrderDTO createOrder(int menuId, String delivery) {
         EntityManager em = emf.createEntityManager();
 
-        CateringOrder order = new CateringOrder(cateringOrderDTO.getDeliveryDate());
+        CateringOrder order = new CateringOrder(delivery);
         Menu menu = em.find(Menu.class, menuId);
 
         order.setMenu(menu);

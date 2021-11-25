@@ -49,6 +49,7 @@ class MenuFacadeTest {
         m2.addToMenu(c3);
 
         em.getTransaction().begin();
+        em.createQuery("delete from CateringOrder").executeUpdate();
         em.createQuery("delete from Course").executeUpdate();
         em.createQuery("delete from Menu").executeUpdate();
         em.persist(m1);
@@ -76,6 +77,7 @@ class MenuFacadeTest {
     }
 
     //TODO: Figure out why it fails remote on pipeline but not local
+
     /*
     @Test
     public void getByIdTest() {

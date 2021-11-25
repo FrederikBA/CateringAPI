@@ -36,9 +36,8 @@ public class OrderResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String createOrder(@PathParam("id") int id, String order) {
-        CateringOrderDTO o = gson.fromJson(order, CateringOrderDTO.class);
-        CateringOrderDTO oNew = facade.createOrder(id, o);
+    public String createOrder(@PathParam("id") int id, String data) {
+        CateringOrderDTO oNew = facade.createOrder(id, data);
         return gson.toJson(oNew);
     }
 

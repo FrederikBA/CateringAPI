@@ -139,6 +139,9 @@ class OrderResourceTest {
                 .statusCode(200);
     }
 
-
+    @Test
+    public void testCreateOrder() {
+        //TODO: Create RestAssured test for createOrder
+    }
 }
 

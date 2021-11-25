@@ -1,5 +1,7 @@
 package facades;
 
+import dtos.CateringOrder.CateringOrderDTO;
+import dtos.Menu.MenuDTO;
 import entities.CateringOrder;
 import entities.Course;
 import entities.Menu;
@@ -9,6 +11,11 @@ import utils.EMF_Creator;
 import javax.persistence.Cache;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.hasItem;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -82,5 +89,17 @@ class OrderFacadeTest {
         int expected = o1.getId();
         int actual = facade.getOrderById(o1.getId()).getId();
         assertEquals(expected,actual);
+    }
+
+    @Test
+    public void createOrderTest() {
+        CateringOrderDTO oDTO = facade.createOrder(m1.getId(),"Today");
+
+        assertThat(facade.getAll().getOrders(), hasItem(oDTO));
+
+        int expected = 3;
+        int actual = facade.getAll().getOrders().size();
+
+        assertEquals(expected, actual);
     }
 }
