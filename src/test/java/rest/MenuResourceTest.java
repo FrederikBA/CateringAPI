@@ -153,5 +153,18 @@ class MenuResourceTest {
         assertThat(menus, not(hasItem(m2DTO)));
     }
 
-    //TODO: Create RestAssured test on createMenu
+    @Test
+    public void testCreateMenu() {
+        Menu menu = new Menu();
+        Course course = new Course("Salmon","Royalsalmon.no",652);
+        menu.addToMenu(course);
+        given()
+                .contentType("application/json")
+                .body(new MenuDTO(menu))
+                .when()
+                .post("menu")
+                .then()
+                .statusCode(200)
+                .body("restaurant",equalTo("CustomCatering"));
+    }
 }

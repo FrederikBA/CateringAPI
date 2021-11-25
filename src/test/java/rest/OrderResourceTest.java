@@ -141,8 +141,15 @@ class OrderResourceTest {
 
     @Test
     public void testCreateOrder() {
-        //TODO: Create RestAssured test for createOrder
-        
+        given()
+                .contentType("application/json")
+                .body("24/12/2021")
+                .when()
+                .post("order/menu/" + m1.getId())
+                .then()
+                .statusCode(200)
+                .body("deliveryDate", equalTo("24/12/2021"));
+
     }
 }
 
