@@ -1,6 +1,8 @@
 package rest;
 
 import dtos.CateringOrder.CateringOrderDTO;
+import dtos.Course.CourseDTO;
+import dtos.Menu.MenuDTO;
 import entities.CateringOrder;
 import entities.Course;
 import entities.Menu;
@@ -10,17 +12,29 @@ import io.restassured.parsing.Parser;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import utils.EMF_Creator;
+
+import static io.restassured.RestAssured.given;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.notNullValue;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.core.UriBuilder;
+
 import java.net.URI;
 import java.util.List;
-
-import static io.restassured.RestAssured.given;
-import static org.junit.jupiter.api.Assertions.*;
 
 class OrderResourceTest {
 
@@ -83,9 +97,9 @@ class OrderResourceTest {
 
 
         em.getTransaction().begin();
+        em.createQuery("delete from CateringOrder").executeUpdate();
         em.createQuery("delete from Course").executeUpdate();
         em.createQuery("delete from Menu").executeUpdate();
-        em.createQuery("delete from CateringOrder").executeUpdate();
         em.persist(m1);
         em.persist(m2);
         em.persist(o1);
@@ -95,7 +109,7 @@ class OrderResourceTest {
 
     @Test
     public void testServerIsUp() {
-        given().when().get("/menu").then().statusCode(200);
+        given().when().get("/order").then().statusCode(200);
     }
 
     @Test
