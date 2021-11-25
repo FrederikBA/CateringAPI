@@ -27,6 +27,10 @@ public class MenuDTO {
         this.restaurant = "CustomCatering";
     }
 
+    public String getRestaurant() {
+        return restaurant;
+    }
+
     public List<CourseDTO> getCourses() {
         return courses;
     }

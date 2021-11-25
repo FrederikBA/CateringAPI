@@ -52,10 +52,6 @@ public class Menu {
         this.courses = courses;
     }
 
-    public Menu(Integer id) {
-        this.id = id;
-    }
-
     public Integer getId() {
         return id;
     }
