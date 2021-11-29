@@ -3,6 +3,7 @@ package facades;
 import dtos.Menu.MenuDTO;
 import entities.Course;
 import entities.Menu;
+import entities.Role;
 import entities.User;
 import org.junit.jupiter.api.*;
 import utils.EMF_Creator;

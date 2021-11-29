@@ -4,6 +4,9 @@ import dtos.Course.CourseDTO;
 import dtos.Menu.MenuDTO;
 import entities.Course;
 import entities.Menu;
+import entities.Role;
+import entities.User;
+import facades.MenuFacade;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
@@ -39,6 +42,9 @@ class MenuResourceTest {
 
     private static final int SERVER_PORT = 7777;
     private static final String SERVER_URL = "http://localhost/api";
+    private static MenuFacade facade;
+    private static User u1;
+    private static Role r1;
     private static Menu m1, m2;
     private static Course c1, c2, c3;
 
@@ -56,6 +62,7 @@ class MenuResourceTest {
         //This method must be called before you request the EntityManagerFactory
         EMF_Creator.startREST_TestWithDB();
         emf = EMF_Creator.createEntityManagerFactoryForTest();
+        facade = MenuFacade.getMenuFacade(emf);
 
         httpServer = startServer();
         //Setup RestAssured
@@ -75,6 +82,9 @@ class MenuResourceTest {
     @BeforeEach
     public void setUp() {
         EntityManager em = emf.createEntityManager();
+        u1 = new User("testUser", "testPassword");
+        r1 = new Role("customer");
+
         m1 = new Menu("24/12/2021");
         m2 = new Menu("31/12/2021");
 
@@ -86,10 +96,18 @@ class MenuResourceTest {
         m1.addToMenu(c2);
         m2.addToMenu(c3);
 
+        u1.addMenu(m1);
+        u1.addMenu(m2);
+
+        u1.addRole(r1);
+
         em.getTransaction().begin();
         em.createQuery("delete from Course").executeUpdate();
         em.createQuery("delete from Menu").executeUpdate();
         em.createQuery("delete from User").executeUpdate();
+        em.createQuery("delete from Role").executeUpdate();
+        em.persist(r1);
+        em.persist(u1);
         em.persist(m1);
         em.persist(m2);
         em.persist(c1);
@@ -152,20 +170,27 @@ class MenuResourceTest {
         MenuDTO m2DTO = new MenuDTO(m2);
         assertThat(menus, not(hasItem(m2DTO)));
     }
-/*
+
     @Test
     public void testCreateMenu() {
-        Menu menu = new Menu();
-        Course course = new Course("Salmon","Royalsalmon.no",652);
-        menu.addToMenu(course);
+        Menu m3 = new Menu("01/12/2021");
+
+        m3.addToMenu(new Course("pizza", "g.dk", 1));
+        m3.addToMenu(new Course("burger", "g.dk", 2));
+
+        MenuDTO mDTO = facade.createMenu(u1.getUserName(), new MenuDTO(m3));
+
         given()
                 .contentType("application/json")
-                .body(new MenuDTO(menu))
+                .body(mDTO)
                 .when()
-                .post("menu")
+                .post("menu/testUser")
                 .then()
                 .statusCode(200)
-                .body("restaurant",equalTo("CustomCatering"));
+                .body("deliveryDate ", equalTo("01/12/2021"));
     }
- */
+
 }
+
+
+
