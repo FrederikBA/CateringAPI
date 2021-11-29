@@ -20,7 +20,7 @@ public class RecipeResource {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String showMessage() {
-        return "{\"msg\":\"This is the recipe API section\"}";
+        return "{\"msg\":\"No ingredient was found\"}";
     }
 
 
