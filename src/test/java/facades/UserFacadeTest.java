@@ -48,6 +48,8 @@ class UserFacadeTest {
 
         try {
             em.getTransaction().begin();
+            em.createQuery("delete from Course").executeUpdate();
+            em.createQuery("delete from Menu").executeUpdate();
             em.createQuery("delete from User").executeUpdate();
             em.createQuery("delete from Role").executeUpdate();
             em.persist(r1);
@@ -79,7 +81,7 @@ class UserFacadeTest {
     }
 
     @Test
-    public void getByUsernameTest(){
+    public void getByUsernameTest() {
         String expected = "TestCustomerOne";
         String actual = facade.getByUsername(u1.getUserName()).getUserName();
         assertEquals(expected, actual);
