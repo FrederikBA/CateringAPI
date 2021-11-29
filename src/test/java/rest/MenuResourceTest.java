@@ -75,8 +75,8 @@ class MenuResourceTest {
     @BeforeEach
     public void setUp() {
         EntityManager em = emf.createEntityManager();
-        m1 = new Menu();
-        m2 = new Menu();
+        m1 = new Menu("24/12/2021");
+        m2 = new Menu("31/12/2021");
 
         c1 = new Course("Ratatoullie", "france.fr", 533);
         c2 = new Course("Goulasch", "hungary.hu", 534);
@@ -87,7 +87,6 @@ class MenuResourceTest {
         m2.addToMenu(c3);
 
         em.getTransaction().begin();
-        em.createQuery("delete from CateringOrder").executeUpdate();
         em.createQuery("delete from Course").executeUpdate();
         em.createQuery("delete from Menu").executeUpdate();
         em.persist(m1);

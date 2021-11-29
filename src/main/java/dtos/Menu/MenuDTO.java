@@ -1,15 +1,17 @@
 package dtos.Menu;
 
 import dtos.Course.CourseDTO;
-import entities.Course;
 import entities.Menu;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class MenuDTO {
-    private final String restaurant;
+    private Integer id;
+    private Date created;
+    private String deliveryDate;
     private List<CourseDTO> courses;
 
     public static List<MenuDTO> getFromList(List<Menu> menus) {
@@ -19,16 +21,34 @@ public class MenuDTO {
     }
 
     public MenuDTO(Menu menu) {
-        this.restaurant = menu.getRestaurant();
+        this.id = menu.getId();
+        this.created = menu.getCreated();
+        this.deliveryDate = menu.getDeliveryDate();
         this.courses = CourseDTO.getFromList(menu.getCourses());
     }
 
-    public MenuDTO() {
-        this.restaurant = "CustomCatering";
+    public Date getCreated() {
+        return created;
     }
 
-    public String getRestaurant() {
-        return restaurant;
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public String getDeliveryDate() {
+        return deliveryDate;
+    }
+
+    public void setDeliveryDate(String deliveryDate) {
+        this.deliveryDate = deliveryDate;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public List<CourseDTO> getCourses() {
@@ -44,18 +64,19 @@ public class MenuDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MenuDTO menuDTO = (MenuDTO) o;
-        return Objects.equals(restaurant, menuDTO.restaurant) && Objects.equals(courses, menuDTO.courses);
+        return Objects.equals(created, menuDTO.created) && Objects.equals(deliveryDate, menuDTO.deliveryDate) && Objects.equals(courses, menuDTO.courses);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(restaurant, courses);
+        return Objects.hash(created, deliveryDate, courses);
     }
 
     @Override
     public String toString() {
         return "MenuDTO{" +
-                "restaurant='" + restaurant + '\'' +
+                "created=" + created +
+                ", deliveryDate='" + deliveryDate + '\'' +
                 ", courses=" + courses +
                 '}';
     }

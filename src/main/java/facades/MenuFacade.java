@@ -6,6 +6,7 @@ import dtos.Menu.MenuDTO;
 import dtos.Menu.MenusDTO;
 import entities.Course;
 import entities.Menu;
+import entities.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -29,10 +30,18 @@ public class MenuFacade {
         return instance;
     }
 
-
-    public MenuDTO createMenu(MenuDTO menuDTO) {
+//TODO: error handling if user does not exist
+    public MenuDTO createMenu(String username, MenuDTO menuDTO) {
         EntityManager em = emf.createEntityManager();
-        Menu menu = new Menu();
+
+        TypedQuery<User> query = em.createQuery("SELECT u from User u WHERE u.userName =:username", User.class);
+        query.setParameter("username", username);
+        User user = query.getSingleResult();
+
+        Menu menu = new Menu(menuDTO.getDeliveryDate());
+
+        user.addMenu(menu);
+
         for (CourseDTO courseDTO : menuDTO.getCourses()) {
             menu.addToMenu(new Course(courseDTO));
         }

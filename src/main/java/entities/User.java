@@ -31,6 +31,9 @@ public class User implements Serializable {
     @ManyToMany
     private List<Role> roleList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+    private List<Menu> menus = new ArrayList<>();
+
     public List<String> getRolesAsStrings() {
         if (roleList.isEmpty()) {
             return null;
@@ -82,4 +85,10 @@ public class User implements Serializable {
         roleList.add(userRole);
     }
 
+    public void addMenu(Menu menu) {
+        this.menus.add(menu);
+        if (menu != null) {
+            menu.setUser(this);
+        }
+    }
 }

@@ -15,7 +15,7 @@ import javax.ws.rs.core.UriInfo;
 
 @Path("/menu")
 public class MenuResource {
-    
+
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
     private static final MenuFacade facade = MenuFacade.getMenuFacade(EMF);
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -50,19 +50,19 @@ public class MenuResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String createMenu(String menu) {
+    @Path("/{username}")
+    public String createMenu(@PathParam("username") String username, String menu) {
         MenuDTO m = gson.fromJson(menu, MenuDTO.class);
-        MenuDTO mNew = facade.createMenu(m);
+        MenuDTO mNew = facade.createMenu(username, m);
         return gson.toJson(mNew);
     }
-
 
 
     @Path("/{id}")
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String deleteMenu(@PathParam("id")int id){
+    public String deleteMenu(@PathParam("id") int id) {
         MenuDTO menuDeleted = facade.deleteMenu(id);
         return gson.toJson(menuDeleted);
     }

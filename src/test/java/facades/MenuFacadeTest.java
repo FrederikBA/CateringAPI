@@ -3,6 +3,7 @@ package facades;
 import dtos.Menu.MenuDTO;
 import entities.Course;
 import entities.Menu;
+import entities.User;
 import org.junit.jupiter.api.*;
 import utils.EMF_Creator;
 
@@ -12,11 +13,11 @@ import javax.persistence.EntityManagerFactory;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-
 class MenuFacadeTest {
 
     private static EntityManagerFactory emf;
     private static MenuFacade facade;
+    private static User u1;
     private static Menu m1, m2;
     private static Course c1, c2, c3;
 
@@ -37,8 +38,10 @@ class MenuFacadeTest {
     @BeforeEach
     public void setUp() {
         EntityManager em = emf.createEntityManager();
-        m1 = new Menu();
-        m2 = new Menu();
+        u1 = new User("testUser", "testPassword");
+
+        m1 = new Menu("24/12/2021");
+        m2 = new Menu("/31/12/2021");
 
         c1 = new Course("Ratatoullie", "france.fr", 533);
         c2 = new Course("Goulasch", "hungary.hu", 534);
@@ -48,10 +51,14 @@ class MenuFacadeTest {
         m1.addToMenu(c2);
         m2.addToMenu(c3);
 
+        u1.addMenu(m1);
+        u1.addMenu(m2);
+
         em.getTransaction().begin();
-        em.createQuery("delete from CateringOrder").executeUpdate();
+        em.createQuery("delete from User").executeUpdate();
         em.createQuery("delete from Course").executeUpdate();
         em.createQuery("delete from Menu").executeUpdate();
+        em.persist(u1);
         em.persist(m1);
         em.persist(m2);
         em.getTransaction().commit();
@@ -62,30 +69,28 @@ class MenuFacadeTest {
     public void tearDown() {
     }
 
-
     @Test
     public void createMenuTest() {
-        Menu m3 = new Menu();
+        Menu m3 = new Menu("01/12/2021");
+
+        facade.createMenu(u1.getUserName(), new MenuDTO(m3));
 
         m3.addToMenu(new Course("pizza", "g.dk", 1));
         m3.addToMenu(new Course("burger", "g.dk", 2));
 
-        int actual = 2;
-        int expected = facade.createMenu(new MenuDTO(m3)).getCourses().size();
+        int actual = 3;
+        int expected = facade.getAll().getMenus().size();
 
         assertEquals(actual, expected);
     }
 
-    //TODO: Figure out why it fails remote on pipeline but not local
-
-    /*
     @Test
     public void getByIdTest() {
-        MenuDTO expected = new MenuDTO(m1);
-        MenuDTO actual = facade.getById(m1.getId());
+        int expected = new MenuDTO(m1).getId();
+        int actual = facade.getById(m1.getId()).getId();
         assertEquals(expected, actual);
     }
-    */
+
 
     @Test
     public void getAllTest() {
@@ -95,11 +100,9 @@ class MenuFacadeTest {
     }
 
     @Test
-    public void deleteMenuTest(){
+    public void deleteMenuTest() {
         facade.deleteMenu(m2.getId());
 
-        assertEquals(1,facade.getAll().getMenus().size());
-
-
+        assertEquals(1, facade.getAll().getMenus().size());
     }
 }

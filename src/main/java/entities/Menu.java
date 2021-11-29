@@ -4,6 +4,7 @@ import org.eclipse.persistence.annotations.CascadeOnDelete;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -13,34 +14,22 @@ public class Menu {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
-    private String restaurant;
+    private Date created;
+    private String deliveryDate;
 
-
-    @OneToMany(mappedBy = "menu", cascade = CascadeType.PERSIST )
+    @OneToMany(mappedBy = "menu", cascade = CascadeType.PERSIST)
     private List<Course> courses;
 
-    @OneToOne(mappedBy = "menu")
-    private CateringOrder cateringOrder;
+    @ManyToOne
+    private User user;
 
-    public Menu() {
-        this.restaurant = "CustomCatering";
+    public Menu(String deliveryDate) {
+        this.created = new Date();
+        this.deliveryDate = deliveryDate;
         this.courses = new ArrayList<>();
     }
 
-    public CateringOrder getCateringOrder() {
-        return cateringOrder;
-    }
-
-    public void setCateringOrder(CateringOrder cateringOrder) {
-        this.cateringOrder = cateringOrder;
-    }
-
-    public String getRestaurant() {
-        return restaurant;
-    }
-
-    public void setRestaurant(String restaurant) {
-        this.restaurant = restaurant;
+    public Menu() {
     }
 
     public List<Course> getCourses() {
@@ -59,6 +48,29 @@ public class Menu {
         this.id = id;
     }
 
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public String getDeliveryDate() {
+        return deliveryDate;
+    }
+
+    public void setDeliveryDate(String deliveryDate) {
+        this.deliveryDate = deliveryDate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public void addToMenu(Course course) {
         this.courses.add(course);
