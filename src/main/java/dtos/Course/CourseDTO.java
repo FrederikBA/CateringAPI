@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public class CourseDTO {
     private String title;
     private String image;
-    private int courseId;
+    private int id;
 
 
     public static List<CourseDTO> getFromList(List<Course> courses) {
@@ -23,13 +23,13 @@ public class CourseDTO {
     public CourseDTO(Course course) {
         this.title = course.getTitle();
         this.image = course.getImage();
-        this.courseId = course.getCourseID();
+        this.id = course.getCourseID();
     }
 
     public CourseDTO(String title, String image, int courseId) {
         this.title = title;
         this.image = image;
-        this.courseId = courseId;
+        this.id = courseId;
     }
 
     public String getTitle() {
@@ -48,12 +48,12 @@ public class CourseDTO {
         this.image = image;
     }
 
-    public int getCourseId() {
-        return courseId;
+    public int getId() {
+        return id;
     }
 
-    public void setCourseId(int courseId) {
-        this.courseId = courseId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
@@ -61,20 +61,11 @@ public class CourseDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CourseDTO courseDTO = (CourseDTO) o;
-        return courseId == courseDTO.courseId && Objects.equals(title, courseDTO.title) && Objects.equals(image, courseDTO.image);
+        return id == courseDTO.id && Objects.equals(title, courseDTO.title) && Objects.equals(image, courseDTO.image);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, image, courseId);
-    }
-
-    @Override
-    public String toString() {
-        return "CourseDTO{" +
-                "title='" + title + '\'' +
-                ", image='" + image + '\'' +
-                ", courseId=" + courseId +
-                '}';
+        return Objects.hash(title, image, id);
     }
 }

@@ -28,7 +28,7 @@ public class Course {
     public Course(CourseDTO courseDTO) {
         this.title = courseDTO.getTitle();
         this.image = courseDTO.getImage();
-        this.courseID = courseDTO.getCourseId();
+        this.courseID = courseDTO.getId();
     }
 
     public Course() {
