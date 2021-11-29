@@ -55,9 +55,9 @@ class MenuFacadeTest {
         u1.addMenu(m2);
 
         em.getTransaction().begin();
-        em.createQuery("delete from User").executeUpdate();
         em.createQuery("delete from Course").executeUpdate();
         em.createQuery("delete from Menu").executeUpdate();
+        em.createQuery("delete from User").executeUpdate();
         em.persist(u1);
         em.persist(m1);
         em.persist(m2);
