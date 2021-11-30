@@ -30,7 +30,7 @@ public class MenuFacade {
         return instance;
     }
 
-//TODO: error handling if user does not exist
+    //TODO: error handling if user does not exist
     public MenuDTO createMenu(String username, MenuDTO menuDTO) {
         EntityManager em = emf.createEntityManager();
         double totalPrice = 0;
@@ -45,8 +45,10 @@ public class MenuFacade {
 
         for (CourseDTO courseDTO : menuDTO.getCourses()) {
             menu.addToMenu(new Course(courseDTO));
-            totalPrice += courseDTO.getPrice();
+            totalPrice += 150 * menuDTO.getServings();
         }
+
+
         menu.setTotalPrice(totalPrice);
 
         try {

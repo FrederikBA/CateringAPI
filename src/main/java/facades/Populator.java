@@ -39,7 +39,6 @@ public class Populator {
 
     public static void testCreate() {
         EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
-        EntityManager em = emf.createEntityManager();
         MenuFacade facade = MenuFacade.getMenuFacade(emf);
         User u2 = new User("customer", "password");
         Role customerRole = new Role("customer");

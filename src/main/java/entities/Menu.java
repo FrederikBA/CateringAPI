@@ -25,25 +25,16 @@ public class Menu {
     @ManyToOne
     private User user;
 
-    public Menu(String deliveryDate) {
-        this.created = new Date();
-        this.deliveryDate = deliveryDate;
-        this.courses = new ArrayList<>();
-
-    }
-
     public Menu(String deliveryDate, int servings) {
         this.created = new Date();
         this.deliveryDate = deliveryDate;
         this.courses = new ArrayList<>();
         this.servings = servings;
-        this.totalPrice = totalPrice * servings;
+        this.totalPrice = totalPrice;
     }
 
     public Menu() {
     }
-
-
 
     public int getServings() {
         return servings;
@@ -100,7 +91,7 @@ public class Menu {
     public void setUser(User user) {
         this.user = user;
     }
-
+    
     public void addToMenu(Course course) {
         this.courses.add(course);
         if (course != null) {

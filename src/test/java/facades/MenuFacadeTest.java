@@ -41,8 +41,8 @@ class MenuFacadeTest {
         EntityManager em = emf.createEntityManager();
         u1 = new User("testUser", "testPassword");
 
-        m1 = new Menu("24/12/2021");
-        m2 = new Menu("/31/12/2021");
+        m1 = new Menu("24/12/2021",3);
+        m2 = new Menu("/31/12/2021",4);
 
         c1 = new Course("Ratatoullie", "france.fr", 533);
         c2 = new Course("Goulasch", "hungary.hu", 534);
@@ -72,7 +72,7 @@ class MenuFacadeTest {
 
     @Test
     public void createMenuTest() {
-        Menu m3 = new Menu("01/12/2021");
+        Menu m3 = new Menu("01/12/2021",2);
 
         facade.createMenu(u1.getUserName(), new MenuDTO(m3));
 

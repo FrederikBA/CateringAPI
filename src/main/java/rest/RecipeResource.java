@@ -22,8 +22,7 @@ public class RecipeResource {
     public String showMessage() {
         return "{\"msg\":\"No ingredient was found\"}";
     }
-
-
+    
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{ingredient}")
