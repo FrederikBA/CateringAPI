@@ -20,7 +20,7 @@ public class Populator {
     public static void populate() {
         EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
         EntityManager em = emf.createEntityManager();
-        Menu m1 = new Menu("24/12/2021");
+        Menu m1 = new Menu("24/12/2021", 7);
         Course c1 = new Course("Pasta", "google.dk", 1);
         Course c2 = new Course("Pizza", "google.dk", 2);
         Course c3 = new Course("Burger", "google.dk", 3);
@@ -41,11 +41,11 @@ public class Populator {
         EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
         EntityManager em = emf.createEntityManager();
         MenuFacade facade = MenuFacade.getMenuFacade(emf);
-        User u2 = new User("testUser", "password");
+        User u2 = new User("customer", "password");
         Role customerRole = new Role("customer");
         u2.addRole(customerRole);
 
-        Menu m2 = new Menu("31/12/2021");
+        Menu m2 = new Menu("31/12/2021",4);
         Course c1 = new Course("Fisk", "google.dk", 4);
         Course c2 = new Course("Kylling", "google.dk", 5);
         Course c3 = new Course("Okse", "google.dk", 6);

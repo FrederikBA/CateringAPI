@@ -13,6 +13,8 @@ public class MenuDTO {
     private Date created;
     private String deliveryDate;
     private List<CourseDTO> courses;
+    private int servings;
+    private double totalPrice;
 
     public static List<MenuDTO> getFromList(List<Menu> menus) {
         return menus.stream()
@@ -25,6 +27,25 @@ public class MenuDTO {
         this.created = menu.getCreated();
         this.deliveryDate = menu.getDeliveryDate();
         this.courses = CourseDTO.getFromList(menu.getCourses());
+        this.servings = menu.getServings();
+        this.totalPrice = menu.getTotalPrice();
+    }
+
+
+    public int getServings() {
+        return servings;
+    }
+
+    public void setServings(int servings) {
+        this.servings = servings;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public Date getCreated() {

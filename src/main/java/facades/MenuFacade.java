@@ -33,18 +33,21 @@ public class MenuFacade {
 //TODO: error handling if user does not exist
     public MenuDTO createMenu(String username, MenuDTO menuDTO) {
         EntityManager em = emf.createEntityManager();
+        double totalPrice = 0;
 
         TypedQuery<User> query = em.createQuery("SELECT u from User u WHERE u.userName =:username", User.class);
         query.setParameter("username", username);
         User user = query.getSingleResult();
 
-        Menu menu = new Menu(menuDTO.getDeliveryDate());
+        Menu menu = new Menu(menuDTO.getDeliveryDate(), menuDTO.getServings());
 
         user.addMenu(menu);
 
         for (CourseDTO courseDTO : menuDTO.getCourses()) {
             menu.addToMenu(new Course(courseDTO));
+            totalPrice += courseDTO.getPrice();
         }
+        menu.setTotalPrice(totalPrice);
 
         try {
 
