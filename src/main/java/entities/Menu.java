@@ -40,6 +40,7 @@ public class Menu {
         this.servings = servings;
         this.totalPrice = totalPrice * servings;
         this.deliveryAddress = deliveryAddress;
+        this.totalPrice = totalPrice;
     }
 
     public Menu() {
@@ -108,7 +109,7 @@ public class Menu {
     public void setUser(User user) {
         this.user = user;
     }
-
+    
     public void addToMenu(Course course) {
         this.courses.add(course);
         if (course != null) {

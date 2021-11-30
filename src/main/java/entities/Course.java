@@ -15,7 +15,7 @@ public class Course {
     private String title;
     private String image;
     private int courseID;
-    private double price = 150;
+    private double price;
 
     @ManyToOne
     Menu menu;
@@ -24,21 +24,15 @@ public class Course {
         this.title = title;
         this.image = image;
         this.courseID = courseID;
+        this.price = 150;
 
-    }
-
-    public Course(String title, String image, int courseID, double price) {
-        this.title = title;
-        this.image = image;
-        this.courseID = courseID;
-        this.price = price;
     }
 
     public Course(CourseDTO courseDTO) {
         this.title = courseDTO.getTitle();
         this.image = courseDTO.getImage();
         this.courseID = courseDTO.getId();
-        this.price = courseDTO.getPrice();
+        this.price = 150;
     }
 
     public Course() {

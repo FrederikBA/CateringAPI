@@ -1,6 +1,7 @@
 package dtos.Menu;
 
 import dtos.Course.CourseDTO;
+import entities.Course;
 import entities.Menu;
 
 import java.util.Date;
@@ -23,6 +24,7 @@ public class MenuDTO {
                 .collect(Collectors.toList());
     }
 
+
     public MenuDTO(Menu menu) {
         this.id = menu.getId();
         this.created = menu.getCreated();
@@ -31,6 +33,9 @@ public class MenuDTO {
         this.servings = menu.getServings();
         this.totalPrice = menu.getTotalPrice();
         this.deliveryAddress = menu.getDeliveryAddress();
+        for (CourseDTO c : courses) {
+            this.totalPrice += c.getPrice() * servings;
+        }
     }
 
     public String getDeliveryAddress() {

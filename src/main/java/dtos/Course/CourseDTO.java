@@ -12,7 +12,7 @@ public class CourseDTO {
     private String title;
     private String image;
     private int id;
-    private double price;
+    private double price = 150;
 
 
     public static List<CourseDTO> getFromList(List<Course> courses) {
@@ -25,7 +25,7 @@ public class CourseDTO {
         this.title = course.getTitle();
         this.image = course.getImage();
         this.id = course.getCourseID();
-        this.price = course.getPrice();
+        this.price = price;
     }
 
 
