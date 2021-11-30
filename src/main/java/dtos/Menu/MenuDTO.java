@@ -15,6 +15,7 @@ public class MenuDTO {
     private List<CourseDTO> courses;
     private int servings;
     private double totalPrice;
+    private String deliveryAddress;
 
     public static List<MenuDTO> getFromList(List<Menu> menus) {
         return menus.stream()
@@ -29,8 +30,16 @@ public class MenuDTO {
         this.courses = CourseDTO.getFromList(menu.getCourses());
         this.servings = menu.getServings();
         this.totalPrice = menu.getTotalPrice();
+        this.deliveryAddress = menu.getDeliveryAddress();
     }
 
+    public String getDeliveryAddress() {
+        return deliveryAddress;
+    }
+
+    public void setDeliveryAddress(String deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
+    }
 
     public int getServings() {
         return servings;

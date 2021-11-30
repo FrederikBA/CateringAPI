@@ -18,6 +18,7 @@ public class Menu {
     private String deliveryDate;
     private int servings;
     private double totalPrice;
+    private String deliveryAddress;
 
     @OneToMany(mappedBy = "menu", cascade = CascadeType.PERSIST)
     private List<Course> courses;
@@ -32,18 +33,25 @@ public class Menu {
 
     }
 
-    public Menu(String deliveryDate, int servings) {
+    public Menu(String deliveryDate, int servings, String deliveryAddress) {
         this.created = new Date();
         this.deliveryDate = deliveryDate;
         this.courses = new ArrayList<>();
         this.servings = servings;
         this.totalPrice = totalPrice * servings;
+        this.deliveryAddress = deliveryAddress;
     }
 
     public Menu() {
     }
 
+    public String getDeliveryAddress() {
+        return deliveryAddress;
+    }
 
+    public void setDeliveryAddress(String deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
+    }
 
     public int getServings() {
         return servings;

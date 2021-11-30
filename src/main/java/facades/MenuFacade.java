@@ -39,7 +39,7 @@ public class MenuFacade {
         query.setParameter("username", username);
         User user = query.getSingleResult();
 
-        Menu menu = new Menu(menuDTO.getDeliveryDate(), menuDTO.getServings());
+        Menu menu = new Menu(menuDTO.getDeliveryDate(), menuDTO.getServings(), menuDTO.getDeliveryAddress());
 
         user.addMenu(menu);
 
