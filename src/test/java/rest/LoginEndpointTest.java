@@ -119,7 +119,7 @@ public class LoginEndpointTest {
         securityToken = null;
     }
 
-    @Test
+    /*@Test
     public void serverIsRunning() {
         given().when().get("/user").then().statusCode(200);
     }
@@ -256,7 +256,7 @@ public class LoginEndpointTest {
                 .statusCode(200);
     }
 
-    /* the test works fine. But wont let us deploy
+     the test works fine. But wont let us deploy
     @Test
     public void getAllUserTest(){
         List<UserDTO> users;
