@@ -97,4 +97,13 @@ public class UserResource {
     public String getAllUsers (){
         return gson.toJson(facade.getAllUsers());
     }
+
+    @Path("/{username}")
+    @DELETE
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String deleteUser(@PathParam("username") String username){
+        UserDTO userdeleted = facade.deleteUser(username);
+        return gson.toJson(userdeleted);
+    }
 }

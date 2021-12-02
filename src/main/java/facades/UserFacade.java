@@ -9,6 +9,7 @@ import entities.User;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
+import javax.ws.rs.WebApplicationException;
 
 import security.errorhandling.AuthenticationException;
 
@@ -113,5 +114,22 @@ public class UserFacade {
         } finally {
             em.close();
         }
+    }
+
+    public UserDTO deleteUser(String username) {
+    EntityManager em = emf.createEntityManager();
+    User user = em.find(User.class,username);
+    try {
+
+        em.getTransaction().begin();
+        em.createNativeQuery("DELETE FROM user_roles WHERE user_name = ?").setParameter(1,username).executeUpdate();
+        em.createNativeQuery("DELETE FROM users WHERE user_name = ?").setParameter(1,username).executeUpdate();
+        em.remove(user);
+        em.getTransaction().commit();
+
+        return new UserDTO(user);
+    } finally {
+        em.close();
+    }
     }
 }

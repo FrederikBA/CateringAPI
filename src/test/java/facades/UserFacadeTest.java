@@ -94,4 +94,12 @@ class UserFacadeTest {
         int actual = facade.getAllUsers().getUsers().size();
         assertEquals(expected,actual);
     }
+
+    @Test
+    public void deleteUser(){
+        facade.deleteUser(u1.getUserName());
+
+
+        assertEquals(1, facade.getAllUsers().getUsers().size());
+    }
 }
