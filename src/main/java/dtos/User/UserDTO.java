@@ -1,15 +1,25 @@
-package dtos;
+package dtos.User;
 
+import dtos.Menu.MenuDTO;
 import dtos.Role.RoleDTO;
+import entities.Menu;
 import entities.User;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class UserDTO {
     private String userName;
     private String userPass;
     private List<RoleDTO> roles;
+
+
+    public static List<UserDTO> getFromList(List<User> users) {
+        return users.stream()
+                .map(user -> new UserDTO(user))
+                .collect(Collectors.toList());
+    }
 
     public UserDTO(User user) {
         this.userName = user.getUserName();

@@ -2,7 +2,7 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import dtos.UserDTO;
+import dtos.User.UserDTO;
 import entities.User;
 
 import java.util.List;
@@ -38,21 +38,6 @@ public class UserResource {
         return "{\"msg\":\"Hello anonymous\"}";
     }
 
-    //Just to verify if the database is setup
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("all")
-    public String allUsers() {
-
-        EntityManager em = EMF.createEntityManager();
-        try {
-            TypedQuery<User> query = em.createQuery("select u from User u", entities.User.class);
-            List<User> users = query.getResultList();
-            return "[" + users.size() + "]";
-        } finally {
-            em.close();
-        }
-    }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -100,10 +85,16 @@ public class UserResource {
 
 
     @GET
-    @Produces("application/json")
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("/{username}")
     public String getByUser(@PathParam("username") String name){
         return gson.toJson(facade.getByUsername(name));
     }
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/all")
+    public String getAllUsers (){
+        return gson.toJson(facade.getAllUsers());
+    }
 }

@@ -1,15 +1,14 @@
 package facades;
 
-import dtos.Role.RoleDTO;
 import dtos.Role.RolesDTO;
-import dtos.UserDTO;
+import dtos.User.UserDTO;
+import dtos.User.UsersDTO;
 import entities.Role;
 import entities.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
-import javax.ws.rs.WebApplicationException;
 
 import security.errorhandling.AuthenticationException;
 
@@ -102,5 +101,16 @@ public class UserFacade {
             em.close();
         }
 
+    }
+
+    public UsersDTO getAllUsers(){
+        EntityManager em = emf.createEntityManager();
+        try {
+            TypedQuery query = em.createQuery("SELECT u FROM User u", User.class);
+            List<User> results = query.getResultList();
+            return new UsersDTO(results);
+        } finally {
+            em.close();
+        }
     }
 }

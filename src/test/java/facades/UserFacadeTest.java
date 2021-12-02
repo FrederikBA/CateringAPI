@@ -1,6 +1,6 @@
 package facades;
 
-import dtos.UserDTO;
+import dtos.User.UserDTO;
 import entities.Role;
 import entities.User;
 import org.junit.jupiter.api.*;
@@ -86,5 +86,12 @@ class UserFacadeTest {
         String expected = "TestCustomerOne";
         String actual = facade.getByUsername(u1.getUserName()).getUserName();
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void getAllUsers(){
+        int expected = 2;
+        int actual = facade.getAllUsers().getUsers().size();
+        assertEquals(expected,actual);
     }
 }

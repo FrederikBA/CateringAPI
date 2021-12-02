@@ -85,8 +85,8 @@ class MenuResourceTest {
         u1 = new User("testUser", "testPassword");
         r1 = new Role("customer");
 
-        m1 = new Menu("24/12/2021",3,"bikini bottom");
-        m2 = new Menu("31/12/2021",4,"bikini bottom");
+        m1 = new Menu("24/12/2021", 3, "bikini bottom");
+        m2 = new Menu("31/12/2021", 4, "bikini bottom");
 
         c1 = new Course("Ratatoullie", "france.fr", 533);
         c2 = new Course("Goulasch", "hungary.hu", 534);
@@ -128,7 +128,8 @@ class MenuResourceTest {
         menus = given()
                 .contentType("application/json")
                 .accept(ContentType.JSON)
-                .get("/menu/all").then()
+                .get("/menu/all")
+                .then()
                 .extract()
                 .body()
                 .jsonPath()
@@ -173,7 +174,7 @@ class MenuResourceTest {
 
     @Test
     public void testCreateMenu() {
-        Menu m3 = new Menu("01/12/2021",2,"bikini bottom");
+        Menu m3 = new Menu("01/12/2021", 2, "bikini bottom");
 
         m3.addToMenu(new Course("pizza", "g.dk", 1));
         m3.addToMenu(new Course("burger", "g.dk", 2));

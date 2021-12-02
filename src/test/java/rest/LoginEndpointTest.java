@@ -1,6 +1,6 @@
 package rest;
 
-import dtos.UserDTO;
+import dtos.User.UserDTO;
 import entities.User;
 import entities.Role;
 
@@ -12,6 +12,7 @@ import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
 
 import java.net.URI;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.core.UriBuilder;
@@ -21,6 +22,9 @@ import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 
 import static org.hamcrest.Matchers.equalTo;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -250,5 +254,21 @@ public class LoginEndpointTest {
                 .get("/user/customer")
                 .then()
                 .statusCode(200);
+    }
+
+    @Test
+    public void getAllUserTest(){
+        List<UserDTO> users;
+        users = given()
+                .contentType("application/json")
+                .accept(ContentType.JSON)
+                .get("/user/all")
+                .then()
+                .extract()
+                .body()
+                .jsonPath()
+                .getList("users",UserDTO.class);
+
+        assertEquals(3,users.size());
     }
 }
