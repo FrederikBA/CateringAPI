@@ -106,7 +106,8 @@ public class UserFacade {
     public UsersDTO getAllUsers(){
         EntityManager em = emf.createEntityManager();
         try {
-            TypedQuery query = em.createQuery("SELECT u FROM User u", User.class);
+            TypedQuery query = em.createQuery("SELECT u FROM User u JOIN u.roleList r WHERE r.roleName =:customer", User.class);
+            query.setParameter("customer","customer");
             List<User> results = query.getResultList();
             return new UsersDTO(results);
         } finally {
