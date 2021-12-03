@@ -32,7 +32,6 @@ public class MenuResource {
         return "{\"msg\":\"This is the menu API section\"}";
     }
 
-
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("all")
@@ -56,7 +55,6 @@ public class MenuResource {
         MenuDTO mNew = facade.createMenu(username, m);
         return gson.toJson(mNew);
     }
-
 
     @Path("/{id}")
     @DELETE
