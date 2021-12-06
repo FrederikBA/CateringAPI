@@ -115,4 +115,16 @@ class MenuFacadeTest {
         int actual = facade.getMenuByUsername(u1.getUserName()).getMenus().size();
         assertEquals(expected,actual);
     }
+
+    @Test
+    public void editDeliveryDate(){
+    m1.setDeliveryDate("12/12/2000");
+
+    MenuDTO editedMenu = new MenuDTO(m1);
+    facade.editDeliveryDate(editedMenu);
+
+    assertEquals(facade.getById(m1.getId()).getDeliveryDate(), editedMenu.getDeliveryDate());
+
+
+    }
 }

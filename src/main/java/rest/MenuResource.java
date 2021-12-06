@@ -73,4 +73,17 @@ public class MenuResource {
         return gson.toJson(facade.getMenuByUsername(username));
     }
 
+
+    @Path("/{id}")
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String editDeliveryDate(@PathParam("id")int id, String deliveryDate){
+        MenuDTO menuDTO = gson.fromJson(deliveryDate,MenuDTO.class);
+        menuDTO.setId(id);
+        MenuDTO menuEdited = facade.editDeliveryDate(menuDTO);
+        return gson.toJson(menuEdited);
+    }
+
+
 }

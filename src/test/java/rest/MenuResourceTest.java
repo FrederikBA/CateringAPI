@@ -191,7 +191,7 @@ class MenuResourceTest {
                 .body("deliveryDate ", equalTo("01/12/2021"));
     }
 
-    //: TODO delete test and getOrderbyusername test
+    //: TODO delete test and getOrderbyusername test + delivery date
 
 }
 

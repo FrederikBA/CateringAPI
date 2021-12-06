@@ -110,10 +110,9 @@ public class MenuFacade {
     public MenusDTO getMenuByUsername(String username) {
         EntityManager em = emf.createEntityManager();
         try {
-            em.getTransaction().begin();
             TypedQuery<Menu> query = em.createQuery("SELECT m FROM Menu m WHERE m.user.userName =:username", Menu.class);
             query.setParameter("username", username);
-            List<Menu> menus= query.getResultList();
+            List<Menu> menus = query.getResultList();
             return new MenusDTO(menus);
 
         } finally {
@@ -134,5 +133,18 @@ public class MenuFacade {
         }
     }
 
+    public MenuDTO editDeliveryDate(MenuDTO menuDTO) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            Menu menu = em.find(Menu.class, menuDTO.getId());
+            menu.setDeliveryDate(menuDTO.getDeliveryDate());
+            em.getTransaction().begin();
+            em.merge(menu);
+            em.getTransaction().commit();
+            return new MenuDTO(menu);
+        } finally {
+            em.close();
+        }
+    }
 
 }
