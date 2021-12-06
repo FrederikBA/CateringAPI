@@ -65,4 +65,12 @@ public class MenuResource {
         return gson.toJson(menuDeleted);
     }
 
+    @Path("/{username}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String getMenuByUsername(@PathParam("username")String username){
+        return gson.toJson(facade.getMenuByUsername(username));
+    }
+
 }

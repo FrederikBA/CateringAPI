@@ -4,6 +4,7 @@ import dtos.Course.CourseDTO;
 import dtos.Course.CoursesDTO;
 import dtos.Menu.MenuDTO;
 import dtos.Menu.MenusDTO;
+import dtos.User.UserDTO;
 import entities.Course;
 import entities.Menu;
 import entities.User;
@@ -106,6 +107,20 @@ public class MenuFacade {
         }
     }
 
+    public MenusDTO getMenuByUsername(String username) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            TypedQuery<Menu> query = em.createQuery("SELECT m FROM Menu m WHERE m.user.userName =:username", Menu.class);
+            query.setParameter("username", username);
+            List<Menu> menus= query.getResultList();
+            return new MenusDTO(menus);
+
+        } finally {
+            em.close();
+        }
+    }
+
 
     //Used in tests to check size of the DB
     public Long getCount() {
@@ -118,4 +133,6 @@ public class MenuFacade {
             em.close();
         }
     }
+
+
 }

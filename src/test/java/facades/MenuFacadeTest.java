@@ -1,6 +1,7 @@
 package facades;
 
 import dtos.Menu.MenuDTO;
+import dtos.Menu.MenusDTO;
 import entities.Course;
 import entities.Menu;
 import entities.Role;
@@ -106,5 +107,12 @@ class MenuFacadeTest {
         facade.deleteMenu(m2.getId());
 
         assertEquals(1, facade.getAll().getMenus().size());
+    }
+
+    @Test
+    public void getMenuByUsernameTest(){
+        int expected = 2;
+        int actual = facade.getMenuByUsername(u1.getUserName()).getMenus().size();
+        assertEquals(expected,actual);
     }
 }
