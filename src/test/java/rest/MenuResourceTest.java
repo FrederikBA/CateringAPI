@@ -43,8 +43,8 @@ class MenuResourceTest {
     private static final int SERVER_PORT = 7777;
     private static final String SERVER_URL = "http://localhost/api";
     private static MenuFacade facade;
-    private static User u1;
-    private static Role r1;
+    private static User u1, u2;
+    private static Role r1, r2;
     private static Menu m1, m2;
     private static Course c1, c2, c3;
 
@@ -85,6 +85,9 @@ class MenuResourceTest {
         u1 = new User("testUser", "testPassword");
         r1 = new Role("customer");
 
+        u2 = new User("admin","test");
+        r2 = new Role("admin");
+
         m1 = new Menu("24/12/2021", 3, "bikini bottom");
         m2 = new Menu("31/12/2021", 4, "bikini bottom");
 
@@ -100,6 +103,7 @@ class MenuResourceTest {
         u1.addMenu(m2);
 
         u1.addRole(r1);
+        u2.addRole(r2);
 
         em.getTransaction().begin();
         em.createQuery("delete from Course").executeUpdate();
@@ -107,7 +111,9 @@ class MenuResourceTest {
         em.createQuery("delete from User").executeUpdate();
         em.createQuery("delete from Role").executeUpdate();
         em.persist(r1);
+        em.persist(r2);
         em.persist(u1);
+        em.persist(u2);
         em.persist(m1);
         em.persist(m2);
         em.persist(c1);
@@ -115,6 +121,27 @@ class MenuResourceTest {
         em.persist(c3);
         em.getTransaction().commit();
     }
+
+    //This is how we hold on to the token after login, similar to that a client must store the token somewhere
+    private static String securityToken;
+
+    //Utility method to login and set the returned securityToken
+    private static void login(String role, String password) {
+        String json = String.format("{username: \"%s\", password: \"%s\"}", role, password);
+        securityToken = given()
+                .contentType("application/json")
+                .body(json)
+                //.when().post("/api/login")
+                .when().post("/login")
+                .then()
+                .extract().path("token");
+        //System.out.println("TOKEN ---> " + securityToken);
+    }
+
+    private void logOut() {
+        securityToken = null;
+    }
+
 
     @Test
     public void testServerIsUp() {
@@ -124,12 +151,15 @@ class MenuResourceTest {
 
     @Test
     public void testGetAll() {
+        login("admin", "test");
         List<MenuDTO> menus;
         menus = given()
                 .contentType("application/json")
                 .accept(ContentType.JSON)
+                .header("x-access-token", securityToken)
                 .get("/menu/all")
                 .then()
+                .statusCode(200)
                 .extract()
                 .body()
                 .jsonPath()

@@ -6,6 +6,7 @@ import dtos.Menu.MenuDTO;
 import facades.MenuFacade;
 import utils.EMF_Creator;
 
+import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
@@ -35,6 +36,7 @@ public class MenuResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("all")
+    @RolesAllowed("admin")
     public String getAll() {
         return gson.toJson(facade.getAll());
     }

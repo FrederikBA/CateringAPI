@@ -94,6 +94,7 @@ public class UserResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/all")
+    @RolesAllowed("admin")
     public String getAllUsers (){
         return gson.toJson(facade.getAllUsers());
     }
