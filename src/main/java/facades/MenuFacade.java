@@ -147,4 +147,16 @@ public class MenuFacade {
         }
     }
 
+    public CoursesDTO getCoursesByOrderNumber(int id) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            TypedQuery query = em.createQuery("SELECT c from Course c WHERE c.menu.id =:id", Course.class);
+            query.setParameter("id", id);
+            List<Course> results = query.getResultList();
+            return new CoursesDTO(results);
+        } finally {
+            em.close();
+        }
+    }
+
 }

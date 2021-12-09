@@ -94,5 +94,11 @@ public class MenuResource {
         return gson.toJson(menuEdited);
     }
 
+    @Path("courses/{ordernumber}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getCoursesByOrderNumber(@PathParam("ordernumber") int orderNumber) {
+        return gson.toJson(facade.getCoursesByOrderNumber(orderNumber));
+    }
 
 }
