@@ -43,6 +43,13 @@ public class MenuResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @Path("menus")
+    public String getMenus() {
+        return gson.toJson(facade.getAll());
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}")
     public String getById(@PathParam("id") int id) {
         return gson.toJson(facade.getById(id));
